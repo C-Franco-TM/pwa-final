@@ -13,12 +13,16 @@
 
   <div id="app">
 
-    <h2>Paso 1</h2>
+    <h2>Paso 2</h2>
     <p>Nombre: {{ nombre }}</p>
     <p>Edad: {{ edad }}</p>
     <p>Ciudad: {{ ciudad }}</p>
     <p>Hola, mi nombre es {{ nombre }}, tengo {{ edad }} años y vivo en {{ ciudad }}</p>
 
+    <h2>Paso 3</h2>
+    <p>Contador: {{ contador }} </p>
+    <button @click="contador++">Incrementar</button>
+    <button @click="contador--">Decrementar</button>  
   </div>
 
   <script>
@@ -27,7 +31,8 @@
       data: {
         nombre: 'Ana Garcia',
         edad: 30,
-        ciudad: "Tupungato"
+        ciudad: "Tupungato",
+        contador: 0
       }
     });
   </script>

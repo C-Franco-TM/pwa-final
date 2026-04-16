@@ -37,6 +37,14 @@
     <p>Total de tareas: {{ totalTareas }}</p>
     <p>Tareas pendientes: {{ tareasPendientes }}</p>
 
+    <h2>Paso 5</h2>
+    <p>Post de la API</p>
+    <ul>
+      <li v-for="post in listaPosts" :key="post.id">
+        {{ post.id }} - {{ post.title }}
+      </li>
+    </ul>
+
   </div>
 
   <script>
@@ -48,7 +56,8 @@
         ciudad: "Tupungato",
         contador: 0,
         nuevaTarea: "",
-        tareas: [{ id: 1, texto: 'Aprender Vue',completada: false}]
+        tareas: [{ id: 1, texto: 'Aprender Vue',completada: false}],
+        listaPosts: []
       },
       methods: {
         agregarTarea: function(){
@@ -58,6 +67,14 @@
             completada: false
           });
           this.nuevaTarea='';
+        },
+        obtenerPost: async function(postId){
+          var respuesta = await axios.get('https://jsonplaceholder.typicode.com/posts/' + postId);
+          return respuesta.data;
+        },
+        obtenerComments: async function(postId){
+          var respuesta = await axios.get('https://jsonplaceholder.typicode.com/posts/' + postId + '/comments');
+          return respuesta.data;
         }
       },
       computed: {
@@ -69,6 +86,12 @@
             return !tarea.completada;
           }).length;
         }         
+      },
+      created: async function() {
+        for (var i = 1; i <= 10; i++) {
+        var post = await this.obtenerPost(i);
+        this.listaPosts.push(post);
+        }
       }
     });
   </script>
